@@ -28,7 +28,18 @@ Les sorties vont dans `experiment/run/` (ignoré par git). Sous Windows : `harne
 
 ## Résultats
 
-Le tableau des résultats est inséré à la main entre les balises du [README.md](README.md) ; ce dossier ne contient ni sorties brutes ni captures.
+Dix-huit runs de Claude Sonnet (3 par condition), jugés à l'aveugle. Moyennes sur 3 runs ; « trouvés » compte les D1 à D8 notés T par le juge ; coût « liste » du JSON de `claude -p`, pas le quota. Les durées WSL et Windows ne se comparent pas.
+
+| Condition | Trouvés /8 (moy., min-max) | Fausses affirmations nettes | Score du juge /10 | Coût par run | Appels d'outil |
+|---|---|---|---|---|---|
+| WSL : sources seules (pas de navigateur) | 8,0 (8-8) | 0,7 | 8,3 | 0,028 $ | 6,0 |
+| WSL : Playwright MCP 0.0.83 | 5,3 (3-8) | 0,3 | 6,3 | 0,078 $ | 6,7 |
+| WSL : Chrome DevTools MCP 1.12.0 | 7,3 (6-8) | 0,3 | 7,7 | 0,097 $ | 18,7 |
+| WSL : script Playwright écrit par Claude | 4,3 (4-5) | 1,0 | 4,7 | 0,057 $ | 4,0 |
+| Windows : extension Claude in Chrome 1.0.102 | 5,7 (3-7) | 1,7 | 5,3 | 0,153 $ | 19,0 |
+| Windows : Playwright MCP 0.0.83 (témoin) | 7,0 (5-8) | 0,3 | 7,8 | 0,078 $ | 7,0 |
+
+Détail par run : [`results-per-run.csv`](results-per-run.csv). Les sources seules ont fait le mieux au plus bas prix sur CETTE page (petite, statique, CSS lisible) ; un même outil varie beaucoup d'un run à l'autre (Playwright MCP : 3 à 8 défauts) ; les valeurs mesurées étaient presque toujours justes, les erreurs sont des causes inventées et de fausses absences. Voir le README anglais pour la lecture complète.
 
 ## Limites
 

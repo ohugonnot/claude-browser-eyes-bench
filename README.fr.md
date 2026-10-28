@@ -4,7 +4,7 @@ Un banc d'essai reproductible qui montre ce que « voient » les navigateurs pil
 
 C'est le compagnon d'un article de blog sur les outils qui donnent un navigateur à un agent de code. C'est aussi fait pour vous : servez la même page, donnez le même [prompt](PROMPT.md) à votre outil (serveur MCP, extension, script) et comparez son rapport à [DEFECTS.md](DEFECTS.md) (en anglais ; les défauts sont aussi listés plus bas).
 
-Article : à venir. English version: [README.md](README.md).
+Article : [Donner un navigateur à Claude Code](https://www.web-developpeur.com/blog/yeux-claude-code-navigateur-playwright-mcp-devtools). English version: [README.md](README.md). L'étude qui suit, où Claude fait lui-même l'audit avec chaque outil, est dans [`experiment/`](experiment/).
 
 ## Lancer
 

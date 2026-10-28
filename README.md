@@ -4,7 +4,7 @@ A reproducible bench that shows what the browsers driven by Playwright (Chromium
 
 It is the companion of a blog post about the tools that give a browser to a coding agent. It is also meant for you: serve the same page, give the same [prompt](PROMPT.md) to your own tool (an MCP server, an extension, a script), and compare its report with [DEFECTS.md](DEFECTS.md).
 
-Article: coming soon. Version française : [README.fr.md](README.fr.md).
+Article (English): [Giving Claude Code a browser](https://www.web-developpeur.com/en/blog/yeux-claude-code-navigateur-playwright-mcp-devtools). Version française : [README.fr.md](README.fr.md). The follow-up study, where Claude itself runs the audit with each tool, is in [`experiment/`](experiment/).
 
 ## Run it
 

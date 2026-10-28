@@ -136,6 +136,27 @@ Outputs go to `experiment\run-windows\` (`runs\`, `reports\`, `run-all.log`). Va
 ## Results
 
 <!-- RESULTS:BEGIN -->
+
+Eighteen runs of Claude Sonnet (3 per condition), judged blind. Figures are means over the 3 runs; "found" is the number of D1 to D8 graded T by the judge. Cost is the "list" cost printed by `claude -p`, not subscription quota. Durations of the WSL and Windows benches are not comparable (different machines).
+
+| Condition | Found /8 (mean, min-max) | Net false claims (mean) | Judge score /10 (mean) | Cost per run | Tool calls (mean) |
+|---|---|---|---|---|---|
+| WSL: source files only (no browser) | 8.0 (8-8) | 0.7 | 8.3 | $0.028 | 6.0 |
+| WSL: Playwright MCP 0.0.83 | 5.3 (3-8) | 0.3 | 6.3 | $0.078 | 6.7 |
+| WSL: Chrome DevTools MCP 1.12.0 | 7.3 (6-8) | 0.3 | 7.7 | $0.097 | 18.7 |
+| WSL: Playwright script written by Claude | 4.3 (4-5) | 1.0 | 4.7 | $0.057 | 4.0 |
+| Windows: Claude in Chrome extension 1.0.102 | 5.7 (3-7) | 1.7 | 5.3 | $0.153 | 19.0 |
+| Windows: Playwright MCP 0.0.83 (control) | 7.0 (5-8) | 0.3 | 7.8 | $0.078 | 7.0 |
+
+Per-run figures are in [`results-per-run.csv`](results-per-run.csv).
+
+How to read this:
+- **Sources only did best here, and cheapest.** The page is a small static page with short, readable CSS, so reading the files is enough to reason about most defects. A site whose layout is built by JavaScript would give a different result.
+- **The same tool varies a lot from run to run**: Playwright MCP found between 3 and 8 defects over 6 runs on two benches. With 3 runs per condition, a gap of one or two points is not a ranking.
+- **Measured values were almost always right; the errors were invented causes and false absences** ("no failed request", "nothing in the console"). The second judge added a rule counting a false absence as a false claim; the first 12 reports were judged before that rule, so their false-claim counts may be understated.
+- The script written by Claude produced six screenshots per run and looked at one. Playwright MCP on Windows took no screenshot at all: the "eyes" were mostly text and measurements written as JavaScript.
+- One WSL run took 1,027 s of wall time for 29 s of model time (WSL suspended, not verified); durations in this table are the ones counted by Claude Code.
+
 <!-- RESULTS:END -->
 
 ## Limits
