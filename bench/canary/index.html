@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canary</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="canary.css">
+<style>
+.band{height:50vh}
+.clip{height:20px;overflow:hidden}
+.faint{color:#ccc;background:#fff}
+.wide{width:3000px;height:10px;background:#ddd}
+.tiny{height:20px;margin:0}
+</style>
+</head>
+<body>
+<div class="wide"></div>
+<div class="band">band</div>
+<div class="clip">This text is longer than the box that holds it, so it runs over the box and a part of it is not shown to the reader at all.<br>Second line<br>Third line</div>
+<p class="faint">Pale text</p>
+<p class="calc">Panel</p>
+<div><button type="button" class="tiny">One</button><button type="button" class="tiny">Two</button></div>
+<img src="pixel.svg" width="10" height="10">
+<img src="http://example.invalid/pixel.png" width="10" height="10" alt="">
+<img src="http://127.0.0.1:39999/refused.png" width="10" height="10" alt="">
+<script>
+fetch('missing.json').catch(function () {});
+fetch('http://127.0.0.1:39999/', { mode: 'no-cors' }).catch(function () {});
+console.error('canary message');
+setTimeout(function () { throw new Error('canary error'); }, 0);
+</script>
+</body>
+</html>

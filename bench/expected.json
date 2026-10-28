@@ -1,35 +1,314 @@
 {
   "playwright": "1.64.1",
-  "note": "Defects each engine must report on site/, per viewport. D5 (calc-size) is accepted by Chromium, so it is not a defect there.",
+  "note": "Per engine: the defect ids and the raw signals site/ must show per viewport, the real clicks allowed to fall back (Chromium touch emulation on the overflowing mobile page), and the signals the canary page must show at desktop. D5 (calc-size) is accepted by Chromium, so it is not a defect there. Firefox does not log the 404 to the console.",
   "engines": {
     "chromium": {
-      "D1": ["mobile"],
-      "D2": ["tablet"],
-      "D3": ["mobile", "tablet", "desktop"],
-      "D4": ["mobile", "tablet", "desktop"],
-      "D6": ["mobile", "tablet", "desktop"],
-      "D7": ["mobile", "tablet", "desktop"],
-      "D8": ["mobile", "tablet", "desktop"]
+      "defects": {
+        "D1": [
+          "mobile"
+        ],
+        "D2": [
+          "tablet"
+        ],
+        "D3": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D4": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D6": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D7": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D8": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ]
+      },
+      "signals": {
+        "overflowX": [
+          "mobile"
+        ],
+        "clipped": [
+          "tablet"
+        ],
+        "smallTargets": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "closeTargets": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "imgNoAlt": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "lowContrast": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "vhRules": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "pageErrors": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "httpErrors": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "console": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ]
+      },
+      "clickFallbacks": {
+        "mobile": 1
+      },
+      "canary": [
+        "overflowX",
+        "clipped",
+        "smallTargets",
+        "closeTargets",
+        "imgNoAlt",
+        "lowContrast",
+        "vhRules",
+        "pageErrors",
+        "httpErrors",
+        "requestsFailed",
+        "console"
+      ]
     },
     "firefox": {
-      "D1": ["mobile"],
-      "D2": ["tablet"],
-      "D3": ["mobile", "tablet", "desktop"],
-      "D4": ["mobile", "tablet", "desktop"],
-      "D5": ["mobile", "tablet", "desktop"],
-      "D6": ["mobile", "tablet", "desktop"],
-      "D7": ["mobile", "tablet", "desktop"],
-      "D8": ["mobile", "tablet", "desktop"]
+      "defects": {
+        "D1": [
+          "mobile"
+        ],
+        "D2": [
+          "tablet"
+        ],
+        "D3": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D4": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D5": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D6": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D7": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D8": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ]
+      },
+      "signals": {
+        "overflowX": [
+          "mobile"
+        ],
+        "clipped": [
+          "tablet"
+        ],
+        "smallTargets": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "closeTargets": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "imgNoAlt": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "lowContrast": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "vhRules": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "pageErrors": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "httpErrors": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "unsupportedCss": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ]
+      },
+      "canary": [
+        "overflowX",
+        "clipped",
+        "smallTargets",
+        "closeTargets",
+        "imgNoAlt",
+        "lowContrast",
+        "vhRules",
+        "pageErrors",
+        "httpErrors",
+        "requestsFailed",
+        "console",
+        "unsupportedCss"
+      ]
     },
     "webkit": {
-      "D1": ["mobile"],
-      "D2": ["tablet"],
-      "D3": ["mobile", "tablet", "desktop"],
-      "D4": ["mobile", "tablet", "desktop"],
-      "D5": ["mobile", "tablet", "desktop"],
-      "D6": ["mobile", "tablet", "desktop"],
-      "D7": ["mobile", "tablet", "desktop"],
-      "D8": ["mobile", "tablet", "desktop"]
+      "defects": {
+        "D1": [
+          "mobile"
+        ],
+        "D2": [
+          "tablet"
+        ],
+        "D3": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D4": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D5": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D6": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D7": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "D8": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ]
+      },
+      "signals": {
+        "overflowX": [
+          "mobile"
+        ],
+        "clipped": [
+          "tablet"
+        ],
+        "smallTargets": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "closeTargets": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "imgNoAlt": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "lowContrast": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "vhRules": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "pageErrors": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "httpErrors": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "unsupportedCss": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "console": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ]
+      },
+      "canary": [
+        "overflowX",
+        "clipped",
+        "smallTargets",
+        "closeTargets",
+        "imgNoAlt",
+        "lowContrast",
+        "vhRules",
+        "pageErrors",
+        "httpErrors",
+        "requestsFailed",
+        "console",
+        "unsupportedCss"
+      ]
     }
   }
 }
