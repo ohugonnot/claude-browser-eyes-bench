@@ -1,6 +1,6 @@
 # The prompt
 
-Give this prompt, unchanged, to the tool or the agent you want to test, with the page served by `docker compose up site` (http://localhost:8099/). It does not say what is wrong with the page.
+Give this prompt, unchanged, to the tool or the agent you want to test, with the page served by `docker compose up --build site` (http://localhost:8099/; if you set `BENCH_PORT`, change the URL in the prompt). It does not say what is wrong with the page.
 
 ## English
 
