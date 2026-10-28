@@ -1,0 +1,35 @@
+{
+  "playwright": "1.64.1",
+  "note": "Defects each engine must report on site/, per viewport. D5 (calc-size) is accepted by Chromium, so it is not a defect there.",
+  "engines": {
+    "chromium": {
+      "D1": ["mobile"],
+      "D2": ["tablet"],
+      "D3": ["mobile", "tablet", "desktop"],
+      "D4": ["mobile", "tablet", "desktop"],
+      "D6": ["mobile", "tablet", "desktop"],
+      "D7": ["mobile", "tablet", "desktop"],
+      "D8": ["mobile", "tablet", "desktop"]
+    },
+    "firefox": {
+      "D1": ["mobile"],
+      "D2": ["tablet"],
+      "D3": ["mobile", "tablet", "desktop"],
+      "D4": ["mobile", "tablet", "desktop"],
+      "D5": ["mobile", "tablet", "desktop"],
+      "D6": ["mobile", "tablet", "desktop"],
+      "D7": ["mobile", "tablet", "desktop"],
+      "D8": ["mobile", "tablet", "desktop"]
+    },
+    "webkit": {
+      "D1": ["mobile"],
+      "D2": ["tablet"],
+      "D3": ["mobile", "tablet", "desktop"],
+      "D4": ["mobile", "tablet", "desktop"],
+      "D5": ["mobile", "tablet", "desktop"],
+      "D6": ["mobile", "tablet", "desktop"],
+      "D7": ["mobile", "tablet", "desktop"],
+      "D8": ["mobile", "tablet", "desktop"]
+    }
+  }
+}

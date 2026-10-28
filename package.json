@@ -1,0 +1,19 @@
+{
+  "name": "claude-browser-eyes-bench",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reproducible bench: what Chromium, Firefox and WebKit (Playwright) see on a page with eight known defects, at three viewports.",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "bench": "node bench/run.mjs && node bench/check.mjs",
+    "run": "node bench/run.mjs",
+    "check": "node bench/check.mjs",
+    "serve": "node bench/serve.mjs site 8099 0.0.0.0",
+    "make-fixed": "node bench/make-fixed.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.64.1"
+  }
+}
