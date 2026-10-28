@@ -1,0 +1,34 @@
+x-common: &common
+  build: .
+  image: claude-browser-eyes-bench:local
+  init: true
+  # Runs as your user so files written to ./out belong to you (uid/gid 1000 by default;
+  # otherwise: BENCH_UID=$(id -u) BENCH_GID=$(id -g) docker compose run --rm bench).
+  user: "${BENCH_UID:-1000}:${BENCH_GID:-1000}"
+  environment:
+    HOME: /tmp
+    NPM_CONFIG_UPDATE_NOTIFIER: "false"
+  shm_size: 1gb
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+
+services:
+  # docker compose run --rm bench   : audit site/ and site-fixed/ in 3 engines x 3 viewports, then check
+  bench:
+    <<: *common
+    volumes:
+      - ./out:/app/out
+
+  # docker compose up site          : serve site/ on http://localhost:8099 (loopback only) to test another tool
+  site:
+    <<: *common
+    command: ["node", "bench/serve.mjs", "site", "8099", "0.0.0.0"]
+    ports:
+      - "127.0.0.1:8099:8099"
+
+  # docker compose up site-fixed    : same page with the defects fixed, on http://localhost:8100
+  site-fixed:
+    <<: *common
+    command: ["node", "bench/serve.mjs", "site-fixed", "8100", "0.0.0.0"]
+    ports:
+      - "127.0.0.1:8100:8100"
