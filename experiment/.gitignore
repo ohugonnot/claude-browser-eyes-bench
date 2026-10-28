@@ -1,0 +1,3 @@
+# Everything the harness generates (see harness/env.sh): raw runs, reports, captures, package installs.
+/run/
+/run-windows/
