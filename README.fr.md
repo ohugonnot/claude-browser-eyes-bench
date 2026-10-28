@@ -120,6 +120,7 @@ Réserve pour les réutiliser ici : la page de ce dépôt est une version reform
 
 Laissées telles quelles, volontairement ou faute de temps :
 - L'audit est fait pour cette page. Ailleurs il peut donner de fausses alertes : le texte masqué visuellement compte comme contenu coupé, les liens en ligne comptent comme cibles petites et proches, le contraste ignore l'opacité, les dégradés et le seuil du grand texte, et `vh` n'est lu que dans `height`, `min-height` et `max-height`.
+- L'audit ne charge que `index.html` (l'URL racine de chaque jeu de pages). `a-propos.html` est servie mais pas auditée : ses cibles tactiles (le lien « Retour », corrigé à 44 px de haut) ne sont donc pas mesurées par le banc.
 - Seuls les chemins des erreurs vers localhost sont consignés ; l'hôte n'est pas conservé.
 - Pas de test de l'audit lui-même en dehors de la page canari.
 - `npm run make-fixed` (pour régénérer `site-fixed/` après une modification de `site/`) demande Node 20 ou plus sur la machine ; le banc lui-même n'en a pas besoin.

@@ -122,6 +122,7 @@ Caveats on reusing them here: the page in this repository is a reworded and clea
 
 Left as they are, on purpose or for lack of time:
 - The audit is meant for this page. On other pages it can raise false alarms: visually hidden text counts as cut content, inline links count as close small targets, contrast ignores opacity, gradients and large-text thresholds, and `vh` is read only in `height`, `min-height` and `max-height`.
+- The audit loads only `index.html` (the root URL of each page set). `a-propos.html` is served but not audited, so its touch targets (the "Retour" link, fixed to 44 px high) are not measured by the bench.
 - Only localhost errors are recorded with their path; the host is not kept.
 - No test of the audit itself beyond the canary page.
 - `npm run make-fixed` (to regenerate `site-fixed/` after editing `site/`) needs Node 20 or later on the host; the bench itself does not.

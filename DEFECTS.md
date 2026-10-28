@@ -22,6 +22,8 @@ Expected result per engine (`bench/expected.json`): Chromium 7 of 7 applicable d
 
 Everything else on the page is clean on purpose (touch targets of at least 44 px, readable contrast, labelled form fields, a valid link, no favicon request), so that a report of anything else is a false positive and `site-fixed/` can reach zero findings.
 
+Note: the "Retour" link of `a-propos.html` was an unstyled inline link about 17 to 19 px high, which contradicted the statement above. It was fixed on 2026-10-28 (a rule in the page itself: `display:inline-flex`, `min-height:44px`, `min-width:44px`) after an external audit found it. It is not one of D1 to D8, so `site/` and `site-fixed/` share the fix and `bench/make-fixed.mjs` has no patch for it. The audit loads only `index.html`, so this page is not measured by the bench.
+
 ## How site-fixed is made
 
 `bench/make-fixed.mjs` holds one patch per defect (9 text replacements and 1 added file; D4 and D8 each need two). `node bench/make-fixed.mjs` rewrites `site-fixed/` from `site/`; `node bench/make-fixed.mjs --check` fails if the committed copy differs, and `bench/check.mjs` runs that check. So the gap between the two pages is exactly the list above:
