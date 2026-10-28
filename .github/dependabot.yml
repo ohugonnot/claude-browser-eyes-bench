@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    # Playwright is pinned on purpose (expected.json and the Docker image
+    # follow it): bump all three together.
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
