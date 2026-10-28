@@ -145,7 +145,7 @@ Eighteen runs of Claude Sonnet (3 per condition), judged blind. Figures are mean
 | WSL: Playwright MCP 0.0.83 | 5.3 (3-8) | 0.3 | 6.3 | $0.078 | 6.7 |
 | WSL: Chrome DevTools MCP 1.12.0 | 7.3 (6-8) | 0.3 | 7.7 | $0.097 | 18.7 |
 | WSL: Playwright script written by Claude | 4.3 (4-5) | 1.0 | 4.7 | $0.057 | 4.0 |
-| Windows: Claude in Chrome extension 1.0.102 | 5.7 (3-7) | 1.7 | 5.3 | $0.153 | 19.0 |
+| Windows: Claude in Chrome extension 1.0.102 | 5.7 (3-7) | 1.3 | 5.3 | $0.153 | 19.0 |
 | Windows: Playwright MCP 0.0.83 (control) | 7.0 (5-8) | 0.3 | 7.8 | $0.078 | 7.0 |
 
 Per-run figures are in [`results-per-run.csv`](results-per-run.csv).
