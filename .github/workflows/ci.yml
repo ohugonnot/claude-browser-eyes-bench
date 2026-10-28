@@ -23,7 +23,7 @@ jobs:
           persist-credentials: false
       - name: Run the bench
         # The container writes ./out as the runner's user (see compose.yaml).
-        run: BENCH_UID="$(id -u)" BENCH_GID="$(id -g)" docker compose run --rm bench
+        run: BENCH_UID="$(id -u)" BENCH_GID="$(id -g)" docker compose run --rm --build bench
       - name: Keep the report and captures
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

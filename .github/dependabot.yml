@@ -8,9 +8,13 @@ updates:
     directory: /
     schedule:
       interval: weekly
-    # Playwright is pinned on purpose (expected.json and the Docker image
-    # follow it): bump all three together.
+    # Playwright is pinned on purpose: package.json, the Docker image and
+    # expected.json are bumped together, by hand.
+    ignore:
+      - dependency-name: "playwright"
   - package-ecosystem: docker
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      - dependency-name: "mcr.microsoft.com/playwright"

@@ -13,22 +13,23 @@ x-common: &common
   security_opt: ["no-new-privileges:true"]
 
 services:
-  # docker compose run --rm bench   : audit site/ and site-fixed/ in 3 engines x 3 viewports, then check
+  # docker compose run --rm --build bench : audit site/ and site-fixed/ in 3 engines x 3 viewports, then check
   bench:
     <<: *common
+    network_mode: none        # the bench needs no network once the image is built
     volumes:
       - ./out:/app/out
 
-  # docker compose up site          : serve site/ on http://localhost:8099 (loopback only) to test another tool
+  # docker compose up site          : serve site/ on http://localhost:8099 (loopback only; BENCH_PORT changes the host port)
   site:
     <<: *common
     command: ["node", "bench/serve.mjs", "site", "8099", "0.0.0.0"]
     ports:
-      - "127.0.0.1:8099:8099"
+      - "127.0.0.1:${BENCH_PORT:-8099}:8099"
 
-  # docker compose up site-fixed    : same page with the defects fixed, on http://localhost:8100
+  # docker compose up site-fixed    : same page with the defects fixed, on http://localhost:8100 (BENCH_FIXED_PORT)
   site-fixed:
     <<: *common
     command: ["node", "bench/serve.mjs", "site-fixed", "8100", "0.0.0.0"]
     ports:
-      - "127.0.0.1:8100:8100"
+      - "127.0.0.1:${BENCH_FIXED_PORT:-8100}:8100"
