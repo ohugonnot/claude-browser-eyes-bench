@@ -1,20 +1,23 @@
 // Generic page audit, meant to be injected into a page (page.evaluate, an MCP
 // "evaluate" tool, a DevTools console...). It is a single async arrow function
 // expression that returns a JSON-serialisable object. It knows nothing about
-// the defects of this repository.
+// the defects of this repository: it checks generic properties only.
 //
 // Detected by RENDERING (measured on the live page, per viewport and engine):
 //   overflowX, clipped, smallTargets, closeTargets, imgNoAlt, lowContrast
 // Detected by STATIC HEURISTIC (read from the stylesheet text, not from layout):
 //   vhRules          rules whose height / min-height / max-height uses a `vh` unit
-//   unsupportedCss   `calc-size()` declarations the running engine rejects
-//                    (CSS.supports is the engine's own answer; the stylesheet
-//                    text is fetched because a rejected declaration is dropped
-//                    from the CSSOM)
+//   unsupportedCss   declarations the running engine rejects, for ONE feature
+//                    only: `calc-size()` (CSS.supports is the engine's own
+//                    answer; the stylesheet text is read because a rejected
+//                    declaration is dropped from the CSSOM). Adding another
+//                    feature means adding it to FEATURES below.
 // Not done here: console errors and failed requests. They are events, not DOM
 // state; the runner (bench/run.mjs) collects them with Playwright listeners.
+// `notes` lists what the audit could not read (unreadable or unfetchable
+// stylesheet): an empty `notes` means nothing was silently skipped.
 async () => {
-  const out = {};
+  const out = { notes: [] };
   const label = (e) => e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (e.classList.length ? '.' + [...e.classList].join('.') : '');
 
   // Layout width. With touch emulation Chromium can widen the layout viewport
@@ -67,27 +70,38 @@ async () => {
     return (s.overflow === 'hidden' || s.overflowY === 'hidden') && e.clientHeight > 0 && e.scrollHeight > e.clientHeight + 1;
   }).map((e) => label(e) + ' ' + e.scrollHeight + '>' + e.clientHeight);
 
-  // STATIC: `vh` heights in the CSSOM. Not a rendering check: in a headless
-  // engine 100vh equals innerHeight, so the layout looks fine. It will also
-  // flag harmless uses of vh.
+  // STATIC: `vh` heights in the CSSOM (including @import-ed sheets). Not a
+  // rendering check: in a headless engine 100vh equals innerHeight, so the
+  // layout looks fine. It will also flag harmless uses of vh.
   out.vhRules = [];
+  const sheets = [];
+  const collect = (ss) => {
+    if (sheets.includes(ss)) return;
+    sheets.push(ss);
+    let rules;
+    try { rules = [...ss.cssRules]; } catch (e) { out.notes.push('unreadable stylesheet: ' + (ss.href || 'inline')); return; }
+    rules.forEach(walk);
+  };
   const walk = (rule) => {
-    if (rule.style && /(^|[^a-z0-9.])\d+(\.\d+)?vh\b/.test(rule.style.height + ' ' + rule.style.minHeight + ' ' + rule.style.maxHeight)) {
+    if (rule.styleSheet) collect(rule.styleSheet); // @import
+    if (rule.style && /(^|[^a-z0-9.])\d*\.?\d+[l]?vh\b/.test(rule.style.height + ' ' + rule.style.minHeight + ' ' + rule.style.maxHeight)) {
       out.vhRules.push(rule.selectorText + ' {' + (rule.style.height || rule.style.minHeight || rule.style.maxHeight) + '}');
     }
     if (rule.cssRules) [...rule.cssRules].forEach(walk);
   };
-  for (const ss of document.styleSheets) { try { [...ss.cssRules].forEach(walk); } catch (e) { /* cross-origin sheet */ } }
+  for (const ss of document.styleSheets) collect(ss);
 
-  // STATIC + engine answer: calc-size() declarations found in the stylesheet
-  // text that the running engine does not support.
+  // STATIC + engine answer: declarations using a feature the running engine
+  // does not support. The declaration must end with `;`, `}` or `!` so that a
+  // `@supports (height: calc-size(...))` guard is not taken for a use.
+  const FEATURES = [/([a-z-]+)\s*:\s*(calc-size\((?:[^()]|\([^()]*\))*\))\s*(?=[;}!]|$)/g];
   out.unsupportedCss = [];
-  const sheets = [...document.querySelectorAll('link[rel=stylesheet]')].map((l) => l.href);
-  for (const href of sheets) {
+  for (const ss of sheets) {
     let text = '';
-    try { text = await (await fetch(href)).text(); } catch (e) { continue; }
-    for (const m of text.matchAll(/([a-z-]+)\s*:\s*(calc-size\([^;}]*\))/g)) {
-      if (!CSS.supports(m[1], m[2])) out.unsupportedCss.push(m[1] + ': ' + m[2]);
+    try { text = ss.href ? await (await fetch(ss.href)).text() : (ss.ownerNode ? ss.ownerNode.textContent : ''); } catch (e) { out.notes.push('stylesheet text not read: ' + (ss.href || 'inline')); continue; }
+    text = text.replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const re of FEATURES) {
+      for (const m of text.matchAll(re)) if (!CSS.supports(m[1], m[2])) out.unsupportedCss.push(m[1] + ': ' + m[2]);
     }
   }
   return out;
