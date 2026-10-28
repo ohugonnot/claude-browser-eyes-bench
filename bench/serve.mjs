@@ -13,14 +13,21 @@ const TYPES = {
 export function startServer(root, port = 0, host = '127.0.0.1') {
   const base = path.resolve(root);
   const server = http.createServer((req, res) => {
-    let rel;
-    try { rel = decodeURIComponent(new URL(req.url, 'http://x').pathname); } catch { rel = null; }
-    const file = rel === null ? null : path.join(base, rel.endsWith('/') ? rel + 'index.html' : rel);
-    if (!file || (file !== base && !file.startsWith(base + path.sep))) { res.writeHead(400).end('bad request'); return; }
-    fs.readFile(file, (err, data) => {
-      if (err) { res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' }).end('not found'); return; }
-      res.writeHead(200, { 'content-type': TYPES[path.extname(file)] || 'application/octet-stream', 'cache-control': 'no-store' }).end(data);
-    });
+    const reply = (code, body) => { if (!res.headersSent) res.writeHead(code, { 'content-type': 'text/plain; charset=utf-8' }); res.end(body); };
+    try {
+      let rel;
+      try { rel = decodeURIComponent(new URL(req.url, 'http://x').pathname); } catch { return reply(400, 'bad request'); }
+      if (rel.includes('\0')) return reply(400, 'bad request');
+      const file = path.join(base, rel.endsWith('/') ? rel + 'index.html' : rel);
+      if (file !== base && !file.startsWith(base + path.sep)) return reply(400, 'bad request');
+      fs.readFile(file, (err, data) => {
+        if (err) return reply(404, 'not found');
+        res.writeHead(200, { 'content-type': TYPES[path.extname(file)] || 'application/octet-stream', 'cache-control': 'no-store' });
+        res.end(data);
+      });
+    } catch {
+      reply(400, 'bad request');
+    }
   });
   return new Promise((resolve, reject) => {
     server.once('error', reject);
