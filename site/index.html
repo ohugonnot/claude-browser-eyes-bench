@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier Lumière</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Atelier Lumière</h1>
+  <nav><a href="a-propos.html" id="lien-a-propos">À propos</a></nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h2>Photographie d'intérieur</h2>
+    <p>Reportages, portraits et séances en studio, à Lyon et dans sa région.</p>
+    <a class="cta" href="#formulaire">Demander un devis</a>
+  </section>
+
+  <section id="tarifs">
+    <h2>Tarifs</h2>
+    <div class="grille-tarifs">Forfait Essentiel 120 € · Forfait Studio 240 € · Forfait Reportage 480 € · Retouches incluses, livraison sous huit jours.</div>
+  </section>
+
+  <section id="realisations">
+    <h2>Réalisations</h2>
+    <div class="cartes">
+      <article class="carte">
+        <h3 class="carte-titre">Loft sur les quais de Saône, lumière du matin</h3>
+        <p class="carte-texte">Une série de douze images réalisée sur deux matinées, entre la verrière, la cuisine ouverte et la chambre sous les toits, avec une lumière naturelle uniquement.</p>
+      </article>
+      <article class="carte">
+        <h3 class="carte-titre">Boutique de céramiques, rue des Capucins</h3>
+        <p class="carte-texte">Reportage en fin de journée dans l'atelier et la boutique, avec les pièces en cours de séchage, les étagères et les portraits des deux céramistes.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="actions">
+    <h2>Actions</h2>
+    <div class="actions">
+      <button type="button" class="action-compacte" id="btn-like">J'aime</button><button type="button" class="action-compacte" id="btn-partage">Partager</button>
+    </div>
+  </section>
+
+  <section id="notes">
+    <h2>Notes de séance</h2>
+    <div class="encart"><p>Chaque séance commence par un repérage des lieux. Les prises de vue durent en moyenne deux heures, puis les images sont triées, retouchées et livrées dans une galerie privée.</p></div>
+  </section>
+
+  <section id="compteur">
+    <h2>Compteur</h2>
+    <button type="button" id="btn-calcul">Calculer</button>
+    <output id="resultat"></output>
+  </section>
+
+  <section id="galerie">
+    <h2>Galerie</h2>
+    <img src="img/photo.svg" width="240" height="160">
+    <p class="legende">Vue de la verrière du loft, prise en fin de matinée.</p>
+  </section>
+
+  <section id="formulaire">
+    <h2>Contact</h2>
+    <form action="#" method="get" onsubmit="return false">
+      <label for="nom">Nom</label>
+      <input id="nom" name="nom" type="text">
+      <label for="mail">Courriel</label>
+      <input id="mail" name="mail" type="email">
+      <button type="submit" class="envoyer">Envoyer</button>
+    </form>
+  </section>
+</main>
+
+<footer class="bas"><p>© 2026 Atelier Lumière, Lyon.</p></footer>
+<script src="js/app.js"></script>
+</body>
+</html>
